@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:WizardlyCoding.swiftpm}",
+            "name": "Debug WizardlyCoding",
+            "target": "WizardlyCoding",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug WizardlyCoding"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:WizardlyCoding.swiftpm}",
+            "name": "Release WizardlyCoding",
+            "target": "WizardlyCoding",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release WizardlyCoding"
+        }
+    ]
+}

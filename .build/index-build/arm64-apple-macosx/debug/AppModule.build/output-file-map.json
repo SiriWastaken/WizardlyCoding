@@ -1,0 +1,54 @@
+{
+  "": {
+    "swift-dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/master.swiftdeps"
+  },
+  "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/AREngine/AREngineView.swift": {
+    "dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/AREngineView.d",
+    "object": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/AREngineView.swift.o",
+    "swiftmodule": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/AREngineView~partial.swiftmodule",
+    "swift-dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/AREngineView.swiftdeps",
+    "diagnostics": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/AREngineView.dia"
+  },
+  "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/MyApp.swift": {
+    "dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/MyApp.d",
+    "object": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/MyApp.swift.o",
+    "swiftmodule": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/MyApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/MyApp.swiftdeps",
+    "diagnostics": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/MyApp.dia"
+  },
+  "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/UIViews/CreditsView.swift": {
+    "dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/CreditsView.d",
+    "object": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/CreditsView.swift.o",
+    "swiftmodule": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/CreditsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/CreditsView.swiftdeps",
+    "diagnostics": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/CreditsView.dia"
+  },
+  "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/UIViews/GameView.swift": {
+    "dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/GameView.d",
+    "object": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/GameView.swift.o",
+    "swiftmodule": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/GameView~partial.swiftmodule",
+    "swift-dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/GameView.swiftdeps",
+    "diagnostics": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/GameView.dia"
+  },
+  "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/UIViews/GameView/NameEntryView.swift": {
+    "dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/NameEntryView.d",
+    "object": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/NameEntryView.swift.o",
+    "swiftmodule": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/NameEntryView~partial.swiftmodule",
+    "swift-dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/NameEntryView.swiftdeps",
+    "diagnostics": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/NameEntryView.dia"
+  },
+  "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/UIViews/HomeView.swift": {
+    "dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/HomeView.d",
+    "object": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/HomeView.swift.o",
+    "swiftmodule": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/HomeView~partial.swiftmodule",
+    "swift-dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/HomeView.swiftdeps",
+    "diagnostics": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/HomeView.dia"
+  },
+  "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/UIViews/OptionsView.swift": {
+    "dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/OptionsView.d",
+    "object": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/OptionsView.swift.o",
+    "swiftmodule": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/OptionsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/OptionsView.swiftdeps",
+    "diagnostics": "/Users/sriganty/Developer/Swift Student Challenge 2027/WizardlyCoding.swiftpm/.build/index-build/arm64-apple-macosx/debug/AppModule.build/OptionsView.dia"
+  }
+}
