@@ -34,7 +34,9 @@ let package = Package(
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
             ],
-            additionalInfoPlistContentFilePath: "Info.plist"
+            capabilities: [
+                .camera(purposeString: "Wizardly Coding uses the camera to detect surfaces and place AR content.")
+            ]
         )
     ],
     targets: [

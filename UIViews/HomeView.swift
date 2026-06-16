@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, macOS 13.0, *)
 struct HomeView: View {
     var body: some View {
         NavigationStack {
@@ -14,7 +15,7 @@ struct HomeView: View {
                 Text("Wizardly Coding")
                     .font(.largeTitle.bold())
                 
-                NavigationLink(destination: NameEntryView()) {
+                NavigationLink(value: "play") {
                     Text("Play")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -40,6 +41,11 @@ struct HomeView: View {
                 }
             }
             .padding()
+            .navigationDestination(for: String.self) { value in
+                if value == "play" {
+                    AREngineView()
+                }
+            }
         }
     }
 }

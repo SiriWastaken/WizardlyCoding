@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, macOS 13.0, *)
 struct OptionsView: View {
     var body: some View {
         Text("Options Coming Soon")
@@ -14,4 +15,4 @@ struct OptionsView: View {
             .padding()
     }
 }
-
+ 

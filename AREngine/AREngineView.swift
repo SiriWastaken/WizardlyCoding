@@ -1,14 +1,14 @@
-#if canImport(UIKit) && canImport(ARKit) && canImport(RealityKit) && canImport(AVFoundation)
+#if canImport(UIKit) && canImport(ARKit) && canImport(SceneKit) && canImport(AVFoundation)
 import SwiftUI
-import RealityKit
 import ARKit
+import SceneKit
 import AVFoundation
 import UIKit
 
+@available(iOS 16.0, macOS 13.0, *)
 struct AREngineView: View {
-    @State private var cameraAuthorization = AVCaptureDevice.authorizationStatus(for: .video)
+    @State private var cameraAuthorization: AVAuthorizationStatus = .notDetermined
     @State private var errorMessage: String?
-    @State private var sessionInterrupted = false
     
     private var hasCameraUsageDescription: Bool {
         Bundle.main.object(forInfoDictionaryKey: "NSCameraUsageDescription") as? String != nil
@@ -22,10 +22,7 @@ struct AREngineView: View {
                     message: "This device does not support AR world tracking."
                 )
             } else if cameraAuthorization == .authorized && hasCameraUsageDescription {
-                ARSessionViewRepresentable(
-                    errorMessage: $errorMessage,
-                    sessionInterrupted: $sessionInterrupted
-                )
+                ARSessionViewRepresentable()
                 .ignoresSafeArea()
             } else if !hasCameraUsageDescription {
                 messageView(
@@ -36,15 +33,14 @@ struct AREngineView: View {
                 permissionView
             }
             
-            if sessionInterrupted {
-                statusBanner(text: "AR session interrupted. Move device to resume.")
-            }
-            
             if let errorMessage {
                 statusBanner(text: errorMessage)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            cameraAuthorization = AVCaptureDevice.authorizationStatus(for: .video)
+        }
         .task {
             await requestCameraPermissionIfNeeded()
         }
@@ -123,79 +119,88 @@ struct AREngineView: View {
 }
 
 private struct ARSessionViewRepresentable: UIViewRepresentable {
-    @Binding var errorMessage: String?
-    @Binding var sessionInterrupted: Bool
-    
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator()
     }
-    
-    func makeUIView(context: Context) -> ARView {
-        let arView = ARView(frame: .zero)
-        arView.session.delegate = context.coordinator
-        arView.automaticallyConfigureSession = false
-        arView.debugOptions = [.showFeaturePoints, .showAnchorGeometry]
+
+    func makeUIView(context: Context) -> ARSCNView {
+        let sceneView = ARSCNView(frame: .zero)
+        sceneView.automaticallyUpdatesLighting = true
+        sceneView.debugOptions = [.showFeaturePoints, .showWorldOrigin]
+        sceneView.scene = SCNScene()
+        sceneView.autoenablesDefaultLighting = true
         
+        guard ARWorldTrackingConfiguration.isSupported else { return sceneView }
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal]
-        arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-        
-        let anchor = AnchorEntity(plane: .horizontal)
-        let mazeBoard = createMazeEntity()
-        anchor.addChild(mazeBoard)
-        arView.scene.anchors.append(anchor)
-        
-        return arView
+
+        // Ensure session run happens on main thread to avoid subtle threading crashes.
+        DispatchQueue.main.async {
+            sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        }
+
+        // Attach tap recognizer to allow placing the maze board.
+        let tap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap(_:)))
+        sceneView.addGestureRecognizer(tap)
+        context.coordinator.sceneView = sceneView
+
+        // Add coaching overlay safely on main thread and only if the class exists.
+        if NSClassFromString("ARCoachingOverlayView") != nil {
+            DispatchQueue.main.async {
+                let coachingOverlay = ARCoachingOverlayView()
+                coachingOverlay.session = sceneView.session
+                coachingOverlay.goal = .horizontalPlane
+                coachingOverlay.activatesAutomatically = true
+                coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
+                sceneView.addSubview(coachingOverlay)
+                NSLayoutConstraint.activate([
+                    coachingOverlay.topAnchor.constraint(equalTo: sceneView.topAnchor),
+                    coachingOverlay.bottomAnchor.constraint(equalTo: sceneView.bottomAnchor),
+                    coachingOverlay.leadingAnchor.constraint(equalTo: sceneView.leadingAnchor),
+                    coachingOverlay.trailingAnchor.constraint(equalTo: sceneView.trailingAnchor)
+                ])
+            }
+        }
+
+        return sceneView
     }
     
-    func updateUIView(_ uiView: ARView, context: Context) {}
+    func updateUIView(_ uiView: ARSCNView, context: Context) {}
     
-    static func dismantleUIView(_ uiView: ARView, coordinator: Coordinator) {
+    static func dismantleUIView(_ uiView: ARSCNView, coordinator: Coordinator) {
         uiView.session.pause()
     }
-    
-    private func createMazeEntity() -> ModelEntity {
-        let mesh = MeshResource.generatePlane(width: 0.5, depth: 0.5)
-        let material = SimpleMaterial(color: .blue.withAlphaComponent(0.6), isMetallic: false)
-        let model = ModelEntity(mesh: mesh, materials: [material])
-        model.position.y = 0.001
-        model.name = "MazeBoard"
-        return model
-    }
-    
-    final class Coordinator: NSObject, ARSessionDelegate {
-        private var parent: ARSessionViewRepresentable
-        
-        init(_ parent: ARSessionViewRepresentable) {
-            self.parent = parent
-        }
-        
-        func session(_ session: ARSession, didFailWithError error: any Error) {
-            let errorMessageBinding = parent.$errorMessage
-            let message = "AR session failed: \(error.localizedDescription)"
-            DispatchQueue.main.async {
-                errorMessageBinding.wrappedValue = message
-            }
-        }
-        
-        func sessionWasInterrupted(_ session: ARSession) {
-            let interruptedBinding = parent.$sessionInterrupted
-            DispatchQueue.main.async {
-                interruptedBinding.wrappedValue = true
-            }
-        }
-        
-        func sessionInterruptionEnded(_ session: ARSession) {
-            let interruptedBinding = parent.$sessionInterrupted
-            let errorMessageBinding = parent.$errorMessage
-            DispatchQueue.main.async {
-                interruptedBinding.wrappedValue = false
-                errorMessageBinding.wrappedValue = nil
-            }
+
+    @MainActor
+    final class Coordinator: NSObject {
+        weak var sceneView: ARSCNView?
+        var hasPlaced = false
+
+        @objc func handleTap(_ sender: UITapGestureRecognizer) {
+            guard let sceneView = sceneView, !hasPlaced else { return }
+            let location = sender.location(in: sceneView)
             
-            let configuration = ARWorldTrackingConfiguration()
-            configuration.planeDetection = [.horizontal]
-            session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+            guard let query = sceneView.raycastQuery(from: location, allowing: .estimatedPlane, alignment: .horizontal) else { return }
+            let results = sceneView.session.raycast(query)
+            
+            guard let first = results.first else { return }
+            let transform = first.worldTransform
+            let position = SCNVector3(transform.columns.3.x, transform.columns.3.y + 0.001, transform.columns.3.z)
+
+            // Create a simple maze board (semi-transparent blue plane)
+            let plane = SCNPlane(width: 0.5, height: 0.5)
+            let material = SCNMaterial()
+            material.diffuse.contents = UIColor.systemBlue.withAlphaComponent(0.6)
+            material.isDoubleSided = true
+            plane.materials = [material]
+
+            let planeNode = SCNNode(geometry: plane)
+            planeNode.eulerAngles.x = -.pi / 2
+            planeNode.position = position
+            planeNode.name = "MazeBoard"
+
+            sceneView.scene.rootNode.addChildNode(planeNode)
+            hasPlaced = true
         }
     }
 }

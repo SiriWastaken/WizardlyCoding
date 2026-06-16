@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, macOS 13.0, *)
 struct NameEntryView: View {
     @State private var userName = ""
     @State private var navigateToGame = false
@@ -37,6 +38,8 @@ struct NameEntryView: View {
             GameView(userName: userName)
         }
         .navigationTitle("")
+#if os(iOS)
         .navigationBarHidden(true)
+#endif
     }
 }

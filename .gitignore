@@ -1,0 +1,12 @@
+.build
+.swiftpm
+.vscode
+.DS_Store
+*.xcworkspace
+*.xcuserstate
+*.xcodeproj/xcuserdata
+*.xcodeproj/project.xcworkspace/xcuserdata
+*.xcodeproj/xcshareddata/WorkspaceSettings.xcsettings
+*.xcodeproj/xcshareddata/xcschemes
+*.xcodeproj/xcshareddata/xcschemes/*
+*.xcodeproj/xcuserdata/*/xcschemes                                                              
